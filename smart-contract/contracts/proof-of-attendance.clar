@@ -58,3 +58,31 @@
 
     (map-set attendance {event-id: event-id, attendee: attendee} check-in-time)
 
+(print {
+      event: "attendance-recorded",
+      event-id: event-id,
+      attendee: attendee,
+      check-in-time: check-in-time
+    })
+
+    (ok check-in-time)
+  )
+)
+
+(define-public (finalize-event (event-id uint))
+  (let
+    (
+      (event-data (unwrap! (map-get? events event-id) ERR_EVENT_NOT_FOUND))
+    )
+    (asserts! (is-eq tx-sender (get creator event-data)) ERR_NOT_EVENT_CREATOR)
+    (map-set events event-id (merge event-data {active: false}))
+    (ok true)
+  )
+)
+
+;; read only functions
+;;
+
+(define-read-only (get-proof-event (event-id uint))
+  (map-get? events event-id)
+)
