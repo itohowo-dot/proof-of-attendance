@@ -1,0 +1,18 @@
+---
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: proof-of-attendance
+            expected-sender: SPN6QHTXYKBNYNS6765BTECXRSPYKC7B0M5KADMW
+            cost: 26160
+            path: contracts/proof-of-attendance.clar
+            anchor-block-only: true
+            clarity-version: 4
+      epoch: "3.3"
